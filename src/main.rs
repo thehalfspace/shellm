@@ -2,6 +2,8 @@
 
 // Read the cli args using this crate
 use std::env;
+// use clap::Parser;
+use llm::Model;
 
 fn main() {
 
