@@ -6,10 +6,15 @@ authors = ["thehalfspace thehalfspace@protonmail.com"]
 
 
 [[bin]]
-name = "inference" 
-path = "src/inference.rs"
+#name = "inference" 
+#path = "src/inference.rs"
+
+name = "main"
+path = "src/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 llm = {git = "https://github.com/rustformers/llm", branch = "main"}
+rand = "0.8.5"
+clap = "4.5.4"

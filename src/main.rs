@@ -2,21 +2,28 @@
 
 // Read the cli args using this crate
 use std::env;
-// use clap::Parser;
-use llm::Model;
+use clap::Parser;
+mod cli;
+mod database;
+mod embeddings;
+mod llm;
 
-fn main() {
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
 
-    let args: Vec<String> = env::args().collect();
+    let args = cli::Cli::parse();
+    match args.command {
+        cli::Commands::Ask { query } => {
+            let context = database::retrieve(&query).await?;
+            let answer = llm::answer_with_context(&query, context).await?;
+            println!("Answer: {}", answer);
+        },
+        cli::Commands::Remember { context } => {
+            database::insert(&content).await?;
+        }
+    }
+    Ok(())
 
-    if args.len() == 2 {
-        let prompt = &args[1];
-        println!("The input string is: {}", prompt);
-    } else {
-        eprintln!(
-            "Usage: <input text string within quotes>"
-        );
-    };
 
 
 }
